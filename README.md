@@ -115,6 +115,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e MYSQL_USER=<MYSQL USER>` | This user will have superuser access to the database specified by MYSQL_DATABASE. |
 | `-e MYSQL_PASSWORD=<DATABASE PASSWORD>` | Set this to the password you want to use for you MYSQL_USER (minimum 4 characters). |
 | `-v /config` | Contains the db itself and all assorted settings. |
+| `-e MYSQL_CLI_ARGS` | Arguments passed to the server. |
 
 ## User / Group Identifiers
 
