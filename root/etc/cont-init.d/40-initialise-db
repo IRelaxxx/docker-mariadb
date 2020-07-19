@@ -23,7 +23,7 @@ fi
 # set basic sql command
 tempSqlFile='/tmp/mysql-first-time.sql'
 cat > "$tempSqlFile" <<-EOSQL
-DELETE FROM mysql.user ;
+DELETE FROM mysql.user WHERE user <> 'mariadb.sys';
 EOSQL
 
 # set what to display if no password set with variable MYSQL_ROOT_PASSWORD
@@ -50,6 +50,7 @@ else
 fi
 
 # Make sure all user and database settings are set and pass is more than 4 characters
+# At the end change to default database created with environment variables to run init and remote scripts there
 if [ "${MYSQL_USER+x}" ] && \
 [ "${MYSQL_DATABASE+x}" ] && \
 [ "${MYSQL_PASSWORD+x}" ] && \
@@ -58,6 +59,7 @@ read -r -d '' MYSQL_DB_SETUP << EOM
 CREATE DATABASE \`${MYSQL_DATABASE}\`;
 CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
 GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
+USE \`${MYSQL_DATABASE}\`;
 EOM
 fi
 
